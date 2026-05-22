@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-7">
-                <p class="text-danger fw-semibold mb-1" style="font-size:0.875rem; letter-spacing:1px; text-transform:uppercase;">Koleksi Terbaru 2024</p>
+                <p class="text-danger fw-semibold mb-1" style="font-size:0.875rem; letter-spacing:1px; text-transform:uppercase;">Koleksi Terbaru 2026</p>
                 <h1 class="section-title display-5 fw-black mb-3">Fashion, Beauty & <br>Koleksi Terbaik</h1>
                 <p class="text-muted mb-4" style="max-width: 460px;">Temukan produk pilihan berkualitas tinggi untuk penampilan dan gaya hidup terbaik Anda.</p>
                 <div class="d-flex gap-3 flex-wrap">

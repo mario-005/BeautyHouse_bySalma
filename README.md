@@ -1,58 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Detail Fitur & CRUD (Create, Read, Update, Delete)
+### 1. Authentication (Otentikasi)
+- **Register**: Pengguna baru dapat mendaftarkan akun.
+- **Login**: Pengguna dapat masuk ke dalam sistem.
+- **Logout**: Pengguna dapat keluar dari sistem.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### 2. Products (Produk)
+Manajemen produk untuk toko kecantikan.
+- **Admin**:
+  - **Read**: Melihat daftar semua produk (`GET /admin/products`).
+  - **Create**: Menambah produk baru melalui form (`GET /admin/products/create` & `POST /admin/products`).
+  - **Update**: Mengedit detail produk seperti nama, harga, deskripsi, atau gambar (`GET /admin/products/{id}/edit` & `PUT /admin/products/{id}`).
+  - **Delete**: Menghapus produk dari sistem (`DELETE /admin/products/{id}`).
+- **User / Customer**:
+  - **Read**: Melihat katalog semua produk di halaman utama (`GET /`).
+  - **Read Detail**: Melihat detail spesifik suatu produk (`GET /products/{id}`).
+  - **API Read**: Mengambil data produk dalam format JSON (`GET /api/products`).
 
-## About Laravel
+### 3. Cart (Keranjang Belanja)
+Keranjang belanja pengguna sebelum melakukan *checkout*.
+- **User (Terautentikasi)**:
+  - **Read**: Melihat isi keranjang belanja (`GET /cart`).
+  - **Create**: Menambahkan produk ke keranjang (`POST /cart`).
+  - **Update**: Mengubah kuantitas/jumlah barang di dalam keranjang (`PUT /cart/{id}`).
+  - **Delete**: Menghapus salah satu barang dari keranjang (`DELETE /cart/{id}`).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 4. Orders & Checkout (Pesanan & Pembayaran)
+Proses pemesanan barang.
+- **User (Terautentikasi)**:
+  - **Create / Checkout**: Melakukan proses pemesanan dari isi keranjang (`GET /checkout` & `POST /checkout`).
+  - **Read**: Melihat riwayat pesanan (Order History) milik pengguna itu sendiri (`GET /orders`).
+- **Admin**:
+  - **Read**: Melihat daftar seluruh pesanan yang masuk dari semua pengguna di Dashboard (`GET /admin/dashboard`).
+  - **Update**: Mengubah status pesanan (contoh: *pending*, *processing*, *shipped*, *delivered*) (`PUT /admin/orders/{id}/status`).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 5. Reviews (Ulasan Produk)
+Ulasan atau *rating* dari pembeli terhadap produk yang dibeli.
+- **User (Terautentikasi)**:
+  - **Create**: Memberikan ulasan baru terhadap suatu produk (`POST /reviews`).
+  - **Update**: Mengubah isi ulasan atau *rating* yang pernah diberikan (`GET /reviews/{id}/edit` & `PUT /reviews/{id}`).
+  - **Read**  : Melihat ulasan atau rating 
+  - **Delete**: Menghapus ulasan yang sudah diberikan (`DELETE /reviews/{id}`).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 6. User Management (Manajemen Pengguna)
+Pengelolaan data pengguna dan administrator.
+- **Admin**:
+  - **Read**: Melihat daftar seluruh pengguna terdaftar (`GET /admin/users`).
+  - **Create**: Menambahkan pengguna baru secara manual (`GET /admin/users/create` & `POST /admin/users`).
+  - **Update**: Mengubah data pengguna lain, termasuk mengatur peran/role (`GET /admin/users/{id}/edit` & `PUT /admin/users/{id}`).
+  - **Delete**: Menghapus pengguna dari sistem (`DELETE /admin/users/{id}`).
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Teknologi yang Digunakan
+- **Framework:** Laravel
+- **Database:** PostgreSQL (Supabase)
+- **Deployment:** Vercel / Clever Cloud
