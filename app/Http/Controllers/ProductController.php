@@ -71,7 +71,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $validated['image'] = $request->file('image')->store('products', config('filesystems.default'));
         }
 
         Product::create($validated);
@@ -100,9 +100,9 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                Storage::disk(config('filesystems.default'))->delete($product->image);
             }
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $validated['image'] = $request->file('image')->store('products', config('filesystems.default'));
         }
 
         $product->update($validated);
@@ -115,7 +115,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         if ($product->image) {
-            Storage::disk('public')->delete($product->image);
+            Storage::disk(config('filesystems.default'))->delete($product->image);
         }
 
         $product->delete();
