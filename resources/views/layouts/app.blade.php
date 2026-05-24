@@ -260,14 +260,47 @@
     };
 
     // Auto-trigger loader on form submissions
-    document.addEventListener('DOMContentLoaded', function() {
-        document.addEventListener('submit', function(e) {
-            const form = e.target;
-            // Only show loader for POST/PUT/DELETE forms
-            if (form.method && form.method.toLowerCase() === 'post') {
-                window.showLoader();
+    document.addEventListener('submit', function(e) {
+        const form = e.target;
+        // Only show loader for POST/PUT/DELETE forms
+        if (form.method && form.method.toLowerCase() === 'post') {
+            window.showLoader();
+        }
+    });
+
+    // Auto-trigger loader on link clicks (page transition)
+    document.addEventListener('click', function(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        const target = link.getAttribute('target');
+
+        // Skip if link has no href, is an anchor, is javascript, opens in new tab, or is a download
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || target === '_blank' || link.hasAttribute('download')) {
+            return;
+        }
+
+        // Only trigger for internal navigation (same origin or relative path)
+        const isInternal = link.hostname === window.location.hostname || 
+                           href.startsWith('/') || 
+                           href.startsWith('./') || 
+                           href.startsWith('../');
+
+        if (isInternal) {
+            // Skip logout forms or specific links if needed
+            if (link.closest('form') || link.classList.contains('no-loader')) {
+                return;
             }
-        });
+            window.showLoader();
+        }
+    });
+
+    // Hide loader if page is loaded from cache (e.g. Back button)
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.hideLoader();
+        }
     });
 </script>
 @yield('scripts')
