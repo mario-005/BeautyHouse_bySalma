@@ -53,6 +53,58 @@
         .hero-section { background: linear-gradient(135deg, #fff5f6 0%, #fce7f3 50%, #fff1f2 100%); }
         .filter-pill { border-radius: 25px; font-weight: 500; font-size: 0.875rem; padding: 6px 18px; cursor: pointer; border: 1.5px solid #e5e7eb; background: #fff; color: #374151; transition: all 0.2s; text-decoration: none; }
         .filter-pill:hover, .filter-pill.active { background: var(--bh-red); color: #fff; border-color: var(--bh-red); }
+
+        /* Premium B-Shaped Loader Styles */
+        #global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #global-loader.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .spinning-circle {
+            animation: spin 1.5s linear infinite;
+            transform-origin: center;
+        }
+        .pulsing-b {
+            animation: pulse 1.8s ease-in-out infinite;
+            transform-origin: center;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 8px rgba(220, 53, 69, 0.3)); }
+        }
+        .loading-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bh-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: text-fade 1.8s ease-in-out infinite;
+        }
+        @keyframes text-fade {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
     </style>
     @yield('styles')
 </head>
@@ -169,7 +221,55 @@
     </div>
 </footer>
 
+<!-- Global Loader overlay -->
+<div id="global-loader">
+    <div class="position-relative d-flex align-items-center justify-content-center" style="width: 140px; height: 140px;">
+        <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="b-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dc3545"/>
+                    <stop offset="100%" stop-color="#f97316"/>
+                </linearGradient>
+            </defs>
+            <!-- Background circle shadow -->
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#ffe5e7" stroke-width="4" />
+            <!-- Spinning outer loader -->
+            <circle cx="50" cy="50" r="44" fill="none" stroke="url(#b-grad)" stroke-width="4" stroke-dasharray="180" stroke-dashoffset="60" stroke-linecap="round" class="spinning-circle"/>
+            <!-- The premium pulsing B logo -->
+            <path d="M38,25 H55 C65,25 72,32 68,42 C65,49 57,50 52,50 C58,50 68,52 70,61 C72,71 65,78 52,78 H38 V25 M46,33 V44 H52 C56,44 59,42 59,38 C59,34 56,33 52,33 H46 M46,55 V70 H52 C57,70 60,68 60,63 C60,57 57,55 52,55 H46" fill="url(#b-grad)" class="pulsing-b" />
+        </svg>
+    </div>
+    <div class="loading-text mt-4">Memproses Data</div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Global loader functions
+    window.showLoader = function() {
+        const loader = document.getElementById('global-loader');
+        if (loader) {
+            loader.classList.add('show');
+        }
+    };
+
+    window.hideLoader = function() {
+        const loader = document.getElementById('global-loader');
+        if (loader) {
+            loader.classList.remove('show');
+        }
+    };
+
+    // Auto-trigger loader on form submissions
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('submit', function(e) {
+            const form = e.target;
+            // Only show loader for POST/PUT/DELETE forms
+            if (form.method && form.method.toLowerCase() === 'post') {
+                window.showLoader();
+            }
+        });
+    });
+</script>
 @yield('scripts')
 </body>
 </html>

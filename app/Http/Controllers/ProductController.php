@@ -70,16 +70,8 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        try {
-            if ($request->hasFile('image')) {
-                $validated['image'] = $request->file('image')->store('products', config('filesystems.default'));
-            }
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error_upload_supabase',
-                'message' => $e->getMessage(),
-                'class' => get_class($e),
-            ], 500);
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('products', config('filesystems.default'));
         }
 
         Product::create($validated);
