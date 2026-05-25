@@ -105,6 +105,60 @@
             0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
         }
+
+        /* Premium Pagination Styles */
+        .pagination-container nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        .pagination-container nav > div:first-child {
+            color: #6b7280 !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .pagination-container nav > div:last-child {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100%;
+        }
+        .pagination {
+            gap: 8px;
+            margin-bottom: 0;
+        }
+        .page-item .page-link {
+            color: var(--bh-text);
+            border: 1.5px solid #e5e7eb !important;
+            border-radius: 10px !important;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .page-item .page-link:hover {
+            background-color: var(--bh-light-red) !important;
+            border-color: var(--bh-red) !important;
+            color: var(--bh-red) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.1);
+        }
+        .page-item.active .page-link {
+            background-color: var(--bh-red) !important;
+            border-color: var(--bh-red) !important;
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+        }
+        .page-item.disabled .page-link {
+            border-color: #f3f4f6 !important;
+            background-color: #f9fafb !important;
+            color: #d1d5db !important;
+            box-shadow: none;
+        }
     </style>
     @yield('styles')
 </head>

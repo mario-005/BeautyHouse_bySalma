@@ -122,7 +122,7 @@
             @endforeach
         </div>
 
-        <div class="mt-5 d-flex justify-content-center">
+        <div class="mt-5 pagination-container">
             {{ $products->links() }}
         </div>
     @endif
